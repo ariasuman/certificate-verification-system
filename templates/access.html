@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Demo Access | Certificate Vault{% endblock %}
+{% block content %}
+<section class="access-screen"><div class="access-panel"><span class="brand-mark">CV</span><div class="eyebrow">RESTRICTED DEMONSTRATION</div><h1>Certificate Vault</h1>{% if configuration_error %}<div class="alert alert-danger">Set a strong <code>DEMO_ACCESS_CODE</code> environment variable before exposing this deployment.</div>{% else %}<p>Enter the access code provided by the project administrator.</p><form method="post" action="{{ url_for('submit_access_code', next=request.args.get('next', '')) }}"><label for="access_code" class="form-label">Demo access code</label><input class="form-control" type="password" name="access_code" id="access_code" required autocomplete="current-password"><button class="btn btn-primary w-100" type="submit">Continue</button></form>{% endif %}<small>Demo access is shared, not a per-user authentication system.</small></div></section>
+{% endblock %}

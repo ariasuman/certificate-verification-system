@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | Certificate Vault{% endblock %}
+{% block content %}
+<section class="page-intro dashboard-intro"><div><div class="eyebrow">SYSTEM OVERVIEW</div><h1>Certificate dashboard</h1><p>Live totals from registered certificate records and integrity checks.</p></div><a class="btn btn-primary" href="{{ url_for('upload') }}">＋ Upload certificate</a></section>
+<section class="stats-grid"><article class="stat-block"><div class="stat-label">TOTAL CERTIFICATES</div><div class="stat-value">{{ total }}</div><div class="stat-caption">Registered records</div><span class="stat-mark blue">▤</span></article><article class="stat-block"><div class="stat-label">SUCCESSFUL UPLOADS</div><div class="stat-value">{{ successful_uploads }}</div><div class="stat-caption">Saved to S3 and SQLite</div><span class="stat-mark green">↑</span></article><article class="stat-block"><div class="stat-label">INTEGRITY VERIFIED</div><div class="stat-value">{{ successful_checks }}</div><div class="stat-caption">Matching SHA-256 hashes</div><span class="stat-mark green">✓</span></article><article class="stat-block"><div class="stat-label">FAILED CHECKS</div><div class="stat-value">{{ failed_checks }}</div><div class="stat-caption">Mismatch or check error</div><span class="stat-mark red">!</span></article></section>
+<div class="dashboard-note"><span>i</span><p>Statistics are calculated from application records. A verification service error is counted as a failed check; review the result message for its cause.</p></div>
+{% endblock %}

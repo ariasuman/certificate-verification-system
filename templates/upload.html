@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Upload Certificate | Certificate Vault{% endblock %}
+{% block content %}
+<section class="page-intro"><div class="eyebrow">SECURE INTAKE</div><h1>Upload certificate</h1><p>We extract readable text, identify common certificate fields, calculate a SHA-256 reference, and store the original privately in S3.</p></section>
+<div class="content-grid">
+  <section class="form-panel">
+    <div class="panel-heading"><span class="panel-icon">↑</span><div><h2>Select a file</h2><p>DOCX, PDF, PNG, JPG, or JPEG · up to 12 MB</p></div></div>
+    <form method="post" enctype="multipart/form-data" class="upload-form">
+      <label for="certificate" class="drop-zone"><span class="upload-symbol">＋</span><strong>Choose a certificate file</strong><span>or drag a file here</span><small>DOCX · PDF · PNG · JPG · 12 MB maximum</small></label>
+      <input class="visually-hidden" type="file" id="certificate" name="certificate" accept=".docx,.pdf,.png,.jpg,.jpeg" required>
+      <div class="selected-file" id="selected-file" aria-live="polite">No file selected</div>
+      <button class="btn btn-primary" type="submit">Process and store certificate <span aria-hidden="true">→</span></button>
+    </form>
+    <div class="privacy-note"><span>i</span><p>Temporary processing files are removed automatically. Certificate objects are never made public.</p></div>
+  </section>
+  <aside class="side-info"><div class="side-info-label">WHAT HAPPENS NEXT</div><ol class="process-list"><li><span>1</span><div><strong>File validation</strong><small>Type, document structure, and size are checked.</small></div></li><li><span>2</span><div><strong>Text extraction</strong><small>Document text is read; OCR is used for images/scans.</small></div></li><li><span>3</span><div><strong>Private storage</strong><small>Amazon S3 stores the original with SSE-S3 encryption.</small></div></li><li><span>4</span><div><strong>Trusted reference</strong><small>Metadata and original hash are registered in SQLite.</small></div></li></ol></aside>
+</div>
+<script>
+  const fileInput = document.getElementById('certificate');
+  const dropZone = document.querySelector('.drop-zone');
+  const selectedFile = document.getElementById('selected-file');
+  fileInput.addEventListener('change', () => { selectedFile.textContent = fileInput.files[0]?.name || 'No file selected'; });
+  for (const eventName of ['dragenter', 'dragover']) dropZone.addEventListener(eventName, event => { event.preventDefault(); dropZone.classList.add('is-dragging'); });
+  for (const eventName of ['dragleave', 'drop']) dropZone.addEventListener(eventName, event => { event.preventDefault(); dropZone.classList.remove('is-dragging'); });
+  dropZone.addEventListener('drop', event => { if (event.dataTransfer.files.length) { fileInput.files = event.dataTransfer.files; fileInput.dispatchEvent(new Event('change')); } });
+</script>
+{% endblock %}

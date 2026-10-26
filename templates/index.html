@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Certificate Vault | Secure certificate records{% endblock %}
+{% block content %}
+<section class="home-hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="eyebrow-dot"></span> CLOUD-BASED CERTIFICATE RECORDS</div>
+    <h1>Keep every credential <span>verifiable.</span></h1>
+    <p class="hero-lede">Extract certificate details, store originals privately in Amazon S3, and check file integrity whenever you need it.</p>
+    <div class="hero-actions"><a class="btn btn-primary btn-lg" href="{{ url_for('upload') }}">Upload a certificate <span aria-hidden="true">↗</span></a><a class="btn btn-outline-secondary btn-lg" href="{{ url_for('verify') }}">Verify a file</a></div>
+    <div class="hero-note"><span class="tiny-shield">✓</span> SHA-256 integrity checks · private S3 storage · no public file links</div>
+  </div>
+  <div class="hero-visual" aria-label="Certificate record status illustration">
+    <div class="visual-grid"></div>
+    <div class="certificate-sheet"><div class="sheet-top"><span class="sheet-seal">CV</span><span class="sheet-label">DIGITAL CREDENTIAL</span></div><div class="sheet-rule"></div><span class="sheet-kicker">CERTIFICATE OF COMPLETION</span><div class="sheet-name">Verified record</div><div class="sheet-subline"></div><div class="sheet-subline short"></div><div class="sheet-bottom"><span>SHA-256</span><span class="verified-chip"><i></i> MATCHED</span></div></div>
+    <div class="storage-tag"><span class="storage-icon">S3</span><span><strong>Stored privately</strong><small>Amazon S3 · SSE-S3</small></span><span class="storage-check">✓</span></div>
+    <div class="hero-index">01 <span>/</span> SECURE ARCHIVE</div>
+  </div>
+</section>
+<section class="home-workflow">
+  <div class="section-heading"><div><div class="eyebrow">A SIMPLE WORKFLOW</div><h2>From upload to integrity check.</h2></div><a class="text-link" href="{{ url_for('about') }}">How this project works <span aria-hidden="true">→</span></a></div>
+  <div class="workflow-grid">
+    <article class="workflow-item"><span class="step-number">01</span><div><h3>Upload &amp; extract</h3><p>Submit a DOCX, PDF, or image. Text extraction and OCR identify details where possible.</p></div><span class="step-arrow">↗</span></article>
+    <article class="workflow-item"><span class="step-number">02</span><div><h3>Store securely</h3><p>The original is saved to a private, encrypted S3 bucket. A trusted hash record is stored separately.</p></div><span class="step-arrow">↗</span></article>
+    <article class="workflow-item"><span class="step-number">03</span><div><h3>Verify on demand</h3><p>Fetch the stored object and compare its current SHA-256 digest with the registered reference.</p></div><span class="step-arrow">↗</span></article>
+  </div>
+</section>
+{% endblock %}

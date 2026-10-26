@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: certificate-vault
+    runtime: docker
+    plan: starter
+    healthCheckPath: /
+    envVars:
+      - key: APP_SECRET_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+      - key: DEMO_ACCESS_CODE
+        sync: false
+      - key: S3_BUCKET
+        sync: false
+      - key: AWS_REGION
+        value: us-east-1
+      - key: DATABASE_PATH
+        value: /var/data/certificates.sqlite3
+    disk:
+      name: certificate-data
+      mountPath: /var/data
+      sizeGB: 1

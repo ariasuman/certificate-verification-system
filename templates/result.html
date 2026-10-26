@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Upload Result | Certificate Vault{% endblock %}
+{% block content %}
+<section class="result-header"><div class="success-mark">✓</div><div><div class="eyebrow">UPLOAD COMPLETE</div><h1>Certificate registered</h1><p>The original file is stored privately in Amazon S3. Review extracted details below.</p></div><a class="btn btn-outline-secondary ms-lg-auto" href="{{ url_for('verify') }}">Verify this certificate →</a></section>
+<div class="content-grid result-grid">
+  <section class="form-panel"><div class="panel-heading"><span class="panel-icon">✓</span><div><h2>Certificate details</h2><p>Automatically extracted · review before relying on these fields</p></div></div><dl class="details-list">
+  <div><dt>Original filename</dt><dd>{{ filename }}</dd></div><div><dt>Certificate ID</dt><dd>{{ fields.certificate_id }}</dd></div><div><dt>Student name</dt><dd>{{ fields.student_name }}</dd></div><div><dt>Course name</dt><dd>{{ fields.course_name }}</dd></div><div><dt>Issue date</dt><dd>{{ fields.issue_date }}</dd></div><div><dt>Issuing institution</dt><dd>{{ fields.institution }}</dd></div><div><dt>Upload status</dt><dd><span class="status-pill"><i></i>{{ upload_status }}</span></dd></div><div class="hash-row"><dt>SHA-256 reference</dt><dd><code>{{ expected_hash }}</code></dd></div>
+  </dl><div class="record-id">Record reference <code>{{ record_id }}</code></div></section>
+  <aside class="side-info extraction-panel"><div class="side-info-label">EXTRACTED TEXT</div><pre class="extracted-text">{{ extracted_text }}</pre><p class="small-note">Field detection is automatic and may need manual confirmation. “Not detected” means no matching label was found.</p></aside>
+</div>
+<div class="result-footnote"><strong>Integrity is not authenticity.</strong> A matching hash means the S3 file matches the trusted hash registered at upload. It does not prove who issued the certificate or whether its claims are true.</div>
+{% endblock %}
